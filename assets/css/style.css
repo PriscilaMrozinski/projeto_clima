@@ -1,0 +1,222 @@
+/* Resetar configurações originais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Paleta de Cores Leves */
+    --azul-bebe: #b3e5fc;
+    --azul-medio: #81d4fa;
+    --azul-escuro: #359bca;
+    --amarelo-claro: #fff9c4;
+    --cinza-claro: #f5f5f5;
+    --cinza-escuro: #444;
+    --branco: #ffffff;
+
+    /* Sombras */
+    --sombra-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    /* Fontes e Tamanhos */
+    --fonte-principal: "Arial", sans-serif;
+    --tamanho-base: 1rem;
+    /* 1rem = 16px padrão */
+}
+
+/* ESTILO GLOBAL */
+
+body {
+    min-height: 100vh; /* Garante altura total da tela */
+    display: flex;
+    flex-direction: column;
+
+    font-family: var(--fonte-principal);
+    color: var(--cinza-escuro);
+    line-height: 1.5;
+    font-size: var(--tamanho-base);
+
+
+}
+
+/* HEADER */
+
+header {
+    position: sticky;     /* efeito para os elementos passarem abaixo do menu */
+    top: 0;     /* fixa o menu no topo */
+    width: 100%;     /* ocupa toda a largura da tela */
+    height: 8rem;     /* altura do menu */
+    background-color: var(--azul-bebe);
+    border-bottom: 0.2rem solid var(--amarelo-claro);     /* borda inferior  */
+    box-shadow: var(--sombra-sm);
+    z-index: 1000;
+
+}
+
+.header-menu {
+    display: flex;
+    align-items: center;
+    position: relative;     /* Necessário para o posicionamento absoluto do título */
+}
+
+/* Logo à esquerda */
+.logo {
+    height: 10rem;/* Aumenta o tamanho do logo */
+    width: auto;     /* Mantém a proporção */
+    margin-left: 15rem;     /* Afasta do lado esquerdo */
+}
+
+#titulo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Título centralizado */
+#titulo h1 {
+    color: var(--cinza-escuro);
+    font-size: 2.8rem;
+    text-align: center;
+}
+
+/* CONTEÚDO PRINCIPAL */
+
+main {
+    flex: 1; /* Faz o conteúdo ocupar o espaço disponível */
+    padding: 2rem;
+    text-align: center;
+    padding-bottom: 5rem; /* Cria espaço para o footer fixo */
+}
+
+.caixa-consulta {
+    background-color: var(--branco);
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: var(--sombra-sm);
+    max-width: 25rem;
+    margin: 0 auto;
+}
+
+.consulta-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--azul-medio);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+input::placeholder {
+    text-align: center;
+    color: var(--azul-escuro);
+    /* cor mais suave */
+    opacity: 0.8;
+    /* deixa o texto um pouco translúcido */
+}
+
+.botao {
+    background-color: var(--amarelo-claro);
+    color: var(--cinza-escuro);
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.botao:hover {
+    background-color: var(--azul-medio);
+    color: var(--branco);
+}
+
+/* Conteúdo Principal - Resultado */
+
+#resultado {
+    margin-top: 1.5rem;
+    background-color: var(--azul-bebe);
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.resultado-clima {
+    background: var(--branco);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--sombra-sm);
+    display: inline-block;
+    min-width: 10rem;
+}
+
+.resultado-clima h2 {
+    font-size: 3rem;
+    color: var(--azul-escuro);
+    margin-bottom: 0.5rem;
+}
+
+.resultado-clima p {
+    color: var(--cinza-escuro);
+    font-weight: bold;
+}
+
+.erro {
+    background: var(--branco);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--sombra-sm);
+    display: inline-block;
+    min-width: 10rem;
+}
+
+
+
+
+/* RODAPÉ */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--azul-bebe);
+    color: var(--cinza-escuro);
+    text-align: center;
+    padding: 1rem;
+    box-shadow: var(--sombra-sm);
+}
+
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 480px) {
+    header {
+        padding: 1rem;
+    }
+
+    .header-menu {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo {
+        height: 3rem;
+        margin-left: 0;
+    }
+
+    #titulo h1 {
+        font-size: 1.25rem;
+    }
+
+    main {
+        padding: 1rem;
+    }
+
+    .caixa-consulta {
+        width: 100%;
+        padding: 1.5rem;
+    }
+}

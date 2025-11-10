@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg" href="./assets/img/favicon.svg">
+
+    <!-- Link para o CSS -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <title>Previsão do Tempo</title>
+
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <article class="header-menu">
+            <div id="logo">
+                <img src="./assets/img/logo.png" alt="Logo do Site" class="logo">
+            </div>
+            <div id="titulo">
+                <h1>PREVISÃO DO TEMPO</h1>
+            </div>
+        </article>
+    </header>
+
+    <!-- Conteúdo Principal -->
+     <main>
+        <article class="caixa-consulta">
+            <h2>Confira o tempo da cidade</h2>
+            <form id="form-clima">
+                <input type="text" id="cidade" name="cidade" placeholder="Sol ou chuva? Digite o nome da cidade e descubra!" required>
+                <button class="botao" type="submit">Buscar</button>
+            </form>
+             <!-- Onde o resultado será exibido -->
+            <section id="resultado"></section>
+        </article>
+
+
+     </main>
+
+     <!-- Rodapé -->
+     <footer> Sol ou chuva? 🌦️ O Clima Tempo te acompanha todos os dias! </footer>
+
+     <!-- JavaScript -->
+     <script src="./assets/js/api.js"></script>
+
+    
+</body>
+</html>
