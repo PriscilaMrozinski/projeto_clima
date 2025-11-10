@@ -39,6 +39,8 @@ body {
 
 }
 
+
+
 /* HEADER */
 
 header {
@@ -153,16 +155,58 @@ input::placeholder {
     min-width: 10rem;
 }
 
+/* ETAPA 2 - Configuração Dia e Noite */
+
+/* === Ajustes para deixar somente a caixinha de resultado escura à noite === */
+/* Coloque este bloco após .resultado-clima no arquivo CSS */
+
+body.noite #resultado {
+  /* manter o fundo do container principal transparente para destacar a caixinha */
+  background: transparent;
+}
+
+body.noite .resultado-clima,
+body.noite .erro {
+  background: linear-gradient(180deg, #0b2b45 0%, #00283d 100%); /* tom escuro suave */
+  color: var(--branco);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Ajustes de cor internos */
+body.noite .resultado-clima h2 {
+  color: #fff; /* temperatura em branco */
+}
+
+body.noite .resultado-clima p,
+body.noite .erro p {
+  color: #e6f0fb; /* texto mais claro */
+}
+
+
+
+/* Se quiser diminuir o contraste do botão quando a caixinha estiver sobre fundo escuro */
+body.noite .botao {
+  background-color: #0b3b5a;
+  color: var(--branco);
+}
+
+/* termina aqui - configuração dia e noite */
+
+
 .resultado-clima h2 {
     font-size: 3rem;
     color: var(--azul-escuro);
     margin-bottom: 0.5rem;
 }
 
+
 .resultado-clima p {
     color: var(--cinza-escuro);
     font-weight: bold;
+    margin: 0.1rem 0; /* 🔹 adiciona espaçamento entre as linhas */
 }
+
 
 .erro {
     background: var(--branco);
@@ -173,6 +217,9 @@ input::placeholder {
     min-width: 10rem;
 }
 
+.local {
+    color: #359bca;
+}
 
 
 
