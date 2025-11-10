@@ -237,21 +237,27 @@ footer {
 }
 
 
-/* RESPONSIVIDADE */
 
+/* RESPONSIVIDADE */
 @media (max-width: 480px) {
     header {
         padding: 1rem;
     }
 
     .header-menu {
-        flex-direction: column;
+        flex-direction: column; /* empilha logo + título */
         text-align: center;
+        align-items: center;    /* centraliza verticalmente */
     }
 
     .logo {
-        height: 3rem;
+        height: 4rem; /* aumentar o logo */
         margin-left: 0;
+    }
+
+    #titulo {
+        position: static; /* remove absolute para não sobrepor o logo */
+        transform: none;  /* remove o translateX que não é mais necessário */
     }
 
     #titulo h1 {
