@@ -32,12 +32,13 @@ document.getElementById("form-clima").addEventListener("submit", async function 
         const geoData = await geoResponse.json();
 
         if (!geoData.results || geoData.results.length === 0) {
-            resultado.innerHTML = `
-                <div class="erro">
-                    <p>Ops! Cidade não localizada. Tente novamente.</p>
-                </div>`;
+            resultado.classList.add("erro");
+            resultado.innerHTML = `<p>Ops! Cidade não localizada!</p> <p>Tente novamente.</p>`;
             return;
         }
+
+
+
 
         const { latitude, longitude, name, country } = geoData.results[0];
 
