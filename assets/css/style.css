@@ -7,45 +7,34 @@
 
 /* 🎨 PALETA DE CORES E VARIÁVEIS GLOBAIS */
 :root {
-    /* Cores principais */
     --cinza: #807976;
     --coral: #DE825C;
     --verde: #98AE9A;
     --offwhite: #F5F0DD;
     --rosa: #C08B86;
-
-    /* Cores do tema diurno */
     --azul-bebe: #b3e5fc;
     --azul-medio: #81d4fa;
     --azul-escuro: #359bca;
     --azul-profundo: #1C355E;
     --azul-texto: #304b63;
     --amarelo-claro: #fff9c4;
-
-    /* Neutros */
     --cinza-claro: #f5f5f5;
     --cinza-escuro: #444;
     --branco: #ffffff;
-
-    /* Tema noturno */
     --noite-fundo-topo: #606777;
     --noite-fundo-base: #363940;
     --noite-texto: #EDE0D4;
     --noite-destaque: #DFA67B;
     --noite-destaque-escuro: #c8956e;
     --noite-hover: #E67E44;
-
-    /* Sombras e fontes */
     --sombra-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
     --fonte-principal: "Arial", sans-serif;
     --tamanho-base: 1rem;
-    /* 1rem = 16px padrão */
 }
 
 /* 🌐 ESTILO GLOBAL */
 body {
     min-height: 100vh;
-    /* altura total da tela */
     display: flex;
     flex-direction: column;
     font-family: var(--fonte-principal);
@@ -57,16 +46,11 @@ body {
 /* 🧭 HEADER */
 header {
     position: sticky;
-    /* elementos passam por baixo do menu */
     top: 0;
-    /* fixa no topo */
     width: 100%;
-    /* ocupa toda a largura */
     height: 12rem;
-    /* altura do menu */
     background-image: linear-gradient(#E6E3E1, #F5E3D8, #F0D9D2, #FBF9F7);
     border-bottom: 0.2rem solid var(--amarelo-claro);
-    /* borda inferior */
     box-shadow: var(--sombra-sm);
     z-index: 1000;
 }
@@ -75,21 +59,15 @@ header {
     display: flex;
     align-items: center;
     position: relative;
-    /* necessário para posicionamento do título */
 }
 
-/* Logo à esquerda */
 .logo {
     height: 7.5rem;
-    /* tamanho do logo */
     width: auto;
-    /* mantém proporção */
     margin-top: 2rem;
     margin-left: 15rem;
-    /* distância da borda esquerda */
 }
 
-/* Título centralizado */
 #titulo {
     position: absolute;
     left: 50%;
@@ -107,14 +85,11 @@ header {
 /* 🧩 CONTEÚDO PRINCIPAL */
 main {
     flex: 1;
-    /* ocupa o espaço disponível */
     padding: 2rem;
     text-align: center;
     padding-bottom: 5rem;
-    /* espaço para o rodapé fixo */
 }
 
-/* 🔍 Caixa de consulta */
 .caixa-consulta {
     background-color: var(--branco);
     padding: 2rem;
@@ -133,19 +108,10 @@ main {
     color: var(--coral);
 }
 
-/* 🔖 Rótulo dos campos */
-.consulta-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-}
-
-/* 🧠 Campo de entrada */
 input[type="text"] {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid var(--azul-medio);
-    /* define borda completa */
     border-radius: 0.5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -157,12 +123,9 @@ input[type="text"] {
 input::placeholder {
     text-align: center;
     color: var(--azul-escuro);
-    /* cor mais suave */
     opacity: 0.8;
-    /* leve transparência */
 }
 
-/* ☀️ Botão */
 .botao {
     background-color: var(--amarelo-claro);
     color: var(--cinza-escuro);
@@ -185,13 +148,11 @@ input::placeholder {
 #resultado {
     margin-top: 1.5rem;
     background: linear-gradient(180deg, #cce7fa 0%, #b6dbf3 100%);
-    /* azul-bebê suave e uniforme */
-    padding: 2rem;
+    padding: 1.6rem;
     border-radius: 1rem;
     box-shadow: 0 6px 18px rgba(0, 100, 200, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.4);
     color: var(--azul-profundo);
-    /* texto azul escuro */
     text-align: center;
     transition: background 0.3s ease, box-shadow 0.3s ease;
 }
@@ -199,7 +160,6 @@ input::placeholder {
 /* Caixa interna */
 .resultado-clima {
     background: transparent;
-    /* remove fundo branco */
     box-shadow: none;
     border: none;
     padding: 1rem;
@@ -218,24 +178,38 @@ input::placeholder {
     margin: 0.3rem 0;
 }
 
-/* Efeito hover */
-#resultado:hover {
-    box-shadow: 0 10px 24px rgba(0, 100, 200, 0.25);
+.local {
+    color: var(--azul-escuro);
 }
 
-/* 🌙 MODO NOTURNO AJUSTADO */
+
+/* ⚠️ Mensagem de erro */
+.erro {
+    margin-top: 1.5rem;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    color: var(--azul-profundo);
+    text-align: center;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.erro p {
+    font-weight: bold;
+    margin: 0.3rem 0;
+}
+
+/* 🌙 MODO NOTURNO */
 body.noite #resultado {
     background: none;
-    /* não mostra fundo duplicado */
     box-shadow: none;
-    /* remove sombra da caixa externa */
     border: none;
-    /* remove a borda branca */
     padding: 0;
-    /* evita espaçamento extra */
 }
 
-/* Caixinha de resultado e mensagens de erro */
 body.noite .resultado-clima,
 body.noite .erro {
     background: linear-gradient(180deg, var(--noite-fundo-topo) 0%, var(--noite-fundo-base) 100%);
@@ -254,7 +228,6 @@ body.noite .erro p {
     color: var(--noite-destaque-escuro);
 }
 
-/* Botão no modo noturno */
 body.noite .botao {
     background-color: var(--noite-destaque);
     color: var(--noite-fundo-topo);
@@ -266,29 +239,52 @@ body.noite .botao:hover {
     color: var(--branco);
 }
 
-/* ⚠️ Mensagem de erro */
-.erro {
-    margin-top: 1.5rem;
-    background: none;      /* ❌ remove fundo azul */
-    padding: 0;            /* ❌ remove espaço interno */
-    border-radius: 0;      /* ❌ remove cantos arredondados */
-    box-shadow: none;      /* ❌ remove sombra */
-    border: none;          /* ❌ remove borda */
-    color: var(--azul-profundo); /* mantém o texto azul escuro */
+/* 🔹 PREVISÃO PRÓXIMOS 4 DIAS */
+.previsao-dias {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.8rem;
+    
+}
+
+.dia {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 0.5rem;
+    padding: 0.4rem 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+body.noite .dia {
+    background: linear-gradient(180deg, var(--noite-fundo-topo) 0%, var(--noite-fundo-base) 100%);
+    color: var(--noite-texto);
+}
+
+/* Colunas da div do dia */
+.lado-esquerdo {
     text-align: center;
-    font-weight: bold;
-    transition: color 0.3s ease;
+    flex: 1;
+    font-size: 0.7rem; /* tamanho do texto aqui */
+    padding: 0 1.5rem 0 0; /* cima direita baixo esquerda */
+    
 }
 
-.erro p {
-    font-weight: bold;
-    margin: 0.3rem 0;
+.centro {
+    text-align: center;
+    flex: 1;
+    font-size: 0.7rem; /* tamanho do texto aqui */
+    /* padding: 0 1.5rem 0 0; cima direita baixo esquerda */
 }
 
-.local {
-    color: var(--azul-escuro);
+.lado-direito {
+    text-align: center;
+    flex: 1;
+    font-size: 0.7rem; /* tamanho do texto aqui */
+    padding: 0 0 0 1.5rem; /* cima direita baixo esquerda */
 }
-
 
 /* 🦶 RODAPÉ */
 footer {
@@ -303,8 +299,8 @@ footer {
     box-shadow: var(--sombra-sm);
 }
 
+/* Responsividade */
 
-/* 📱 RESPONSIVIDADE */
 
 @media (max-width: 480px) {
     header {
@@ -343,5 +339,15 @@ footer {
     .caixa-consulta {
         width: 100%;
         padding: 1.5rem;
+    }
+
+        .dia {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .lado-esquerdo, .centro, .lado-direito {
+        flex: none;
     }
 }

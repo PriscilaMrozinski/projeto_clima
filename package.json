@@ -6,23 +6,15 @@
   "scripts": {
     "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PriscilaMrozinski/projeto_clima.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/PriscilaMrozinski/projeto_clima/issues"
-  },
-  "homepage": "https://github.com/PriscilaMrozinski/projeto_clima#readme",
   "devDependencies": {
     "jest": "^30.2.0"
   },
   "directories": {
     "test": "tests"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
   },
   "dependencies": {
     "ansi-escapes": "^4.3.2",

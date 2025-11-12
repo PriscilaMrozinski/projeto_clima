@@ -1,16 +1,3 @@
-/**
- * Manipula o envio do formulário de previsão do tempo.
- * 
- * - Evita o recarregamento da página.
- * - Obtém o valor da cidade digitada pelo usuário.
- * - Busca coordenadas da cidade usando a API de geocodificação.
- * - Busca dados do clima atual usando a API Open-Meteo.
- * - Atualiza a interface com o resultado ou mensagem de erro.
- * - Ajusta o fundo da página conforme horário (dia/noite).
- * 
- * @param {Event} event - O evento de submit do formulário.
- * @returns {Promise<void>} Não retorna valor, apenas atualiza a interface.
- */
 document.getElementById("form-clima").addEventListener("submit", async function (event) {
     event.preventDefault(); // impede o recarregamento da página
 
@@ -37,14 +24,12 @@ document.getElementById("form-clima").addEventListener("submit", async function 
             return;
         }
 
-
-
-
         const { latitude, longitude, name, country } = geoData.results[0];
+        const stateCode = geoData.results[0].admin1 || "";
 
-        // Buscar temperatura e condição atual
+        // Buscar previsão para 5 dias
         const weatherResponse = await fetch(
-            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weathercode`
+            `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto`
         );
 
         if (!weatherResponse.ok) {
@@ -53,50 +38,35 @@ document.getElementById("form-clima").addEventListener("submit", async function 
 
         const weatherData = await weatherResponse.json();
 
-        const temperatura = weatherData.current.temperature_2m;
-        const codigoClima = weatherData.current.weathercode;
+        const dias = weatherData.daily.time; // array de datas
+        const tempMax = weatherData.daily.temperature_2m_max;
+        const tempMin = weatherData.daily.temperature_2m_min;
+        const codigosClima = weatherData.daily.weathercode;
 
-        // Mapeamento dos códigos de clima
+        // Mapeamento de código de clima para descrição e emoji
         const descricoesClima = {
-            0: "Céu limpo ☀️",
-            1: "Parcialmente limpo 🌤️",
-            2: "Parcialmente nublado ⛅",
-            3: "Nublado ☁️",
-            45: "Nevoeiro 🌫️",
-            48: "Nevoeiro com gelo 🌫️",
-            51: "Garoa leve 🌦️",
-            53: "Garoa moderada 🌦️",
-            55: "Garoa intensa 🌧️",
-            61: "Chuva leve 🌦️",
-            63: "Chuva moderada 🌧️",
-            65: "Chuva forte ⛈️",
-            71: "Neve leve ❄️",
-            73: "Neve moderada ❄️",
-            75: "Neve forte 🌨️",
-            95: "Tempestade 🌩️",
-            96: "Tempestade com granizo 🌩️",
-            99: "Tempestade forte com granizo ⛈️"
+            0: { texto: "Céu limpo", icone: "☀️" },
+            1: { texto: "Parcialmente limpo", icone: "🌤️" },
+            2: { texto: "Parcialmente nublado", icone: "⛅" },
+            3: { texto: "Nublado", icone: "☁️" },
+            45: { texto: "Nevoeiro", icone: "🌫️" },
+            48: { texto: "Nevoeiro com gelo", icone: "🌫️" },
+            51: { texto: "Garoa leve", icone: "🌦️" },
+            53: { texto: "Garoa moderada", icone: "🌦️" },
+            55: { texto: "Garoa intensa", icone: "🌧️" },
+            61: { texto: "Chuva leve", icone: "🌦️" },
+            63: { texto: "Chuva moderada", icone: "🌧️" },
+            65: { texto: "Chuva forte", icone: "⛈️" },
+            71: { texto: "Neve leve", icone: "❄️" },
+            73: { texto: "Neve moderada", icone: "❄️" },
+            75: { texto: "Neve forte", icone: "🌨️" },
+            95: { texto: "Tempestade", icone: "🌩️" },
+            96: { texto: "Tempestade com granizo", icone: "🌩️" },
+            99: { texto: "Tempestade forte com granizo", icone: "⛈️" }
         };
 
-        const descricao = descricoesClima[codigoClima] || "Clima desconhecido";
-
-        // 🔹 Obter estado (caso exista)
-        const stateCode = geoData.results[0].admin1 || "";
-
-        // 🔹 Obter data e hora local formatadas
+        // 🔹 Obter hora atual para definir fundo
         const agora = new Date();
-        const diaSemana = agora.toLocaleDateString("pt-BR", { weekday: "long" });
-        const dataCompleta = agora.toLocaleDateString("pt-BR", {
-            day: "2-digit",
-            month: "long",
-            year: "numeric"
-        });
-        const horaFormatada = agora.toLocaleTimeString("pt-BR", {
-            hour: "2-digit",
-            minute: "2-digit"
-        });
-
-        // 🔹 Muda cor do fundo conforme o horário
         const hora = agora.getHours();
         const body = document.body;
         if (hora >= 6 && hora < 18) {
@@ -107,22 +77,58 @@ document.getElementById("form-clima").addEventListener("submit", async function 
             body.classList.add("noite");
         }
 
-        // 🔹 Exibir resultado (agora com todas as quebras de linha)
-        resultado.innerHTML = `
+        // 🔹 Primeiro dia (hoje) mantém layout original
+        const hoje = new Date(dias[0]);
+        const diaSemanaHoje = hoje.toLocaleDateString("pt-BR", { weekday: "long" });
+        const dataCompletaHoje = hoje.toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" });
+
+        const climaHoje = descricoesClima[codigosClima[0]] || { texto: "Clima desconhecido", icone: "" };
+
+        let previsaoHTML = `
             <div class="resultado-clima">
-                <h2>${Math.round(temperatura)}°</h2>
-                <p>${descricao}</p>
+                <h2>${Math.round(tempMax[0])}°</h2>
+                <p>${climaHoje.texto} ${climaHoje.icone}</p>
                 <p><span class="local">${name}/${stateCode}, ${country}</span></p>
                 <br>
-                <p>${diaSemana}</p>
-                <p>${dataCompleta}</p>
-                <p>hora ${horaFormatada}</p>
+                <p>${diaSemanaHoje}</p>
+                <p>${dataCompletaHoje}</p>
             </div>
         `;
 
+        // 🔹 Próximos 4 dias
+        previsaoHTML += `<div class="previsao-dias">`;
+
+        for (let i = 1; i < dias.length; i++) {
+            const dataObj = new Date(dias[i]);
+            const diaSemana = dataObj.toLocaleDateString("pt-BR", { weekday: "long" });
+            const dataFormatada = dataObj.toLocaleDateString("pt-BR", { day: "numeric", month: "long" });
+
+            const clima = descricoesClima[codigosClima[i]] || { texto: "Clima desconhecido", icone: "" };
+
+            previsaoHTML += `
+                <div class="dia">
+                    <div class="lado-esquerdo">
+                        <p><strong>${diaSemana}</strong></p>
+                        <p>${dataFormatada}</p>
+                    </div>
+                    <div class="centro">
+                        <p>${clima.icone}</p>
+                        <p>${clima.texto}</p>
+                    </div>
+                    <div class="lado-direito">
+                        <p>Max: ${Math.round(tempMax[i])}°</p>
+                        <p>Min: ${Math.round(tempMin[i])}°</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        previsaoHTML += `</div>`; // fecha previsao-dias
+
+        resultado.innerHTML = previsaoHTML;
+
     } catch (error) {
         console.error("Erro ao buscar dados:", error);
-
         resultado.innerHTML = `
             <div class="erro">
                 <p>Verifique sua conexão e tente novamente!</p>
